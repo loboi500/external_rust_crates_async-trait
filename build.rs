@@ -1,25 +1,3 @@
-use std::env;
-use std::process::Command;
-use std::str;
-
-fn main() {
-    let compiler = match rustc_minor_version() {
-        Some(compiler) => compiler,
-        None => return,
-    };
-
-    if compiler < 47 {
-        println!("cargo:rustc-cfg=self_span_hack");
-    }
-}
-
-fn rustc_minor_version() -> Option<u32> {
-    let rustc = env::var_os("RUSTC")?;
-    let output = Command::new(rustc).arg("--version").output().ok()?;
-    let version = str::from_utf8(&output.stdout).ok()?;
-    let mut pieces = version.split('.');
-    if pieces.next() != Some("rustc 1") {
-        return None;
-    }
-    pieces.next()?.parse().ok()
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:e2ca6b6c6f18d5d47cb662083856d1399946bc41a272b30231c31ae8317a3ed0
+size 620
